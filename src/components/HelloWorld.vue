@@ -1,8 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <div>
-      <img id="camanjs" src="static/73b4754e0cef7ede009a805a138aa78b.jpg"/>
+    <div id="img_canvas">
+      <!-- <img id="camanjs" src="https://tpc.googlesyndication.com/daca_images/simgad/8454867233327495675" crossorigin="anonymous"/>
+      -->
     </div>
     <h2>Essential Links</h2>
     <ul>
@@ -89,11 +90,28 @@
 <script>
 export default {
   name: 'HelloWorld',
-  created () {
+  mounted () {
     console.log('loaded...')
-    Caman('#camanjs', function () {
-      this.brightness(100).render()
-    })
+
+    let imgCanvas = document.getElementById('img_canvas')
+    let image = new Image()
+    image.crossOrigin = 'anonymous'
+    image.onload = function () {
+      console.log('img loaded')
+      console.log(imgCanvas)
+      imgCanvas.appendChild(image)
+      Caman(image, function () {
+        // use selected preset, or do whatever you want here
+        this.render(function () {
+          // var dataUrl = div.querySelector ('canvas').toDataURL ('image/jpeg', 0.6);
+        })
+      })
+    }
+    image.src = 'https://tpc.googlesyndication.com/daca_images/simgad/8454867233327495675'
+
+    // Caman('#camanjs', function () {
+    //   this.brightness(100).render()
+    // })
   },
   data () {
     return {
